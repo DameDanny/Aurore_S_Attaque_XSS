@@ -93,7 +93,16 @@
         userName = "applicant";
 
         if (userParam !== null) {
-            userName = userParam;
+            let eventModif = userParam
+            eventModif= eventModif.split("")
+            for (let i=0; i<eventModif.length;i++) {
+                if(eventModif[i]===">" || eventModif[i]==="<") {
+                    eventModif[i]=""
+                }
+            }
+            
+            eventModif=eventModif.join("")
+            userName = eventModif;
         }
 
         document.getElementById("welcome-text").innerHTML = "<h1>How do you do, " + userName + "?</h1>";
@@ -106,7 +115,16 @@
         input.addEventListener("input", updateValue);
 
         function updateValue(e) {
-            log.innerHTML = e.target.value;
+            let eventModif = e.target.value
+            eventModif= eventModif.split("")
+            for (let i=0; i<eventModif.length;i++) {
+                if(eventModif[i]===">" || eventModif[i]==="<") {
+                    eventModif[i]=""
+                }
+            }
+            
+            eventModif=eventModif.join("")
+            log.innerHTML = eventModif;
         }
 
         //  XSS vulnerability #3
@@ -118,14 +136,33 @@
         showButton.addEventListener("click", showHTML);
 
         function showHTML() {
-            htmlOutput.innerHTML = htmlInput.value;
+            let eventModif = htmlInput.value;
+            eventModif= eventModif.split("")
+            for (let i=0; i<eventModif.length;i++) {
+                if(eventModif[i]===">" || eventModif[i]==="<" || eventModif===":") {
+                    eventModif[i]=""
+                }
+            }
+            
+            eventModif=eventModif.join("")
+            htmlOutput.innerHTML = eventModif;
         }
 
         //  XSS vulnerability #4
 
         const redir = params.get("goto");
         if (redir !== null && redir !== "null") {
-            document.location = redir;
+            
+            let eventModif = redir
+            eventModif= eventModif.split(":")
+            for (let i=0; i<eventModif.length;i++) {
+                if(eventModif[i]==="javascript" || eventModif[i]===">"|| eventModif[i]==="<" || eventModif===":") {
+                    eventModif[i]=""
+                }
+            }
+            
+            eventModif=eventModif.join("")
+            document.location = eventModif
         }
 
     </script>
