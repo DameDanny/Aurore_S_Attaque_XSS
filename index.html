@@ -47,7 +47,16 @@
         input.addEventListener("input", updateValue);
 
         function updateValue(e) {
-            log.innerHTML = e.target.value;
+            let eventModif = e.target.value
+            eventModif= eventModif.split("")
+            for (let i=0; i<eventModif.length;i++) {
+                if(eventModif[i]===">" || eventModif[i]==="<") {
+                    eventModif[i]=""
+                }
+            }
+            
+            eventModif=eventModif.join("")
+            log.innerHTML = eventModif;
         }
 
     </script>
